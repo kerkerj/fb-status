@@ -6,13 +6,15 @@ class CrawlerController < ApplicationController
     url_color = [
       'progress-bar-success',
       'progress-bar-info',
-      'progress-bar-danger'
+      'progress-bar-danger',
+      'progress-bar-info'
     ]
 
     target_url = [
       'https://www.facebook.com/pages/無限期支持方仰寧支持警察/310212962461242',
       'https://www.facebook.com/pages/方仰寧加油/1422073471381129?fref=ts',
-      'https://www.facebook.com/antiblacktw?fref=ts'
+      'https://www.facebook.com/antiblacktw?fref=ts',
+      'https://www.facebook.com/peoplewithpeople?fref=ts'
     ]
 
     urls = target_url.join("','")
@@ -46,6 +48,18 @@ class CrawlerController < ApplicationController
     page_title = url.match(/pages\/([^\/]+)\//)
     page_title = url.match(/com\/([^\/]+)[\/\?]/) if page_title.blank?
 
-    return page_title.nil? ? '未取得標題' : page_title[1]
+    if (page_title.nil?)
+      title = '未取得標題'
+    else
+      title = page_title[1]
+
+      if (page_title[1] == 'peoplewithpeople')
+        title = '因為支持警察，所以我反對方仰寧'
+      elsif (page_title[1] == 'antiblacktw')
+        title = '反黑箱服貿協議'
+      end
+    end
+
+    return title
   end
 end
