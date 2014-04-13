@@ -1,0 +1,12 @@
+<% @response.each do |report| %>
+<div class="row">
+  <div class="col-md-3 date"><%= report['query_at'] %></div>
+  <div class="col-md-4 page-title"><%= report['total_count'] %> # <%= report['page_title'] %></div>
+  <div class="col-md-1 count-diff"><%= report['count_diff'] %></div>
+  <div class="col-md-4 range">
+    <div class="progress">
+      <div class="progress-bar <%= report['url_color'] %>" role="progressbar" aria-valuenow="<%= report['count_diff'] %>" aria-valuemin="0" aria-valuemax="250" style="width: <%= report['percent'] %>%;"><%= report['count_diff'] %></div>
+    </div>
+  </div>
+</div>
+<% end %>

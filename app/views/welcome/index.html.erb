@@ -1,0 +1,29 @@
+<div class="log">Loading..</div>
+
+<script type="text/javascript">
+var ui_log = $('.log');
+
+var setting = {
+  refresh_time: 45000
+};
+
+var init_ui = function () {
+  var update_report = function () {
+    $.get('/crawler', function(data) {
+      try {
+        ui_log.prepend(data);
+      } catch ( error ) {
+        console.error(error);
+      }
+    }, 'html');
+  };
+
+  setInterval(function() { update_report(); }, setting.refresh_time);
+};
+
+var main = function () {
+  init_ui();
+};
+
+main();
+</script>
